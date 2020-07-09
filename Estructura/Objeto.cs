@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Grafica.MyGame;
 using OpenTK;
 
 namespace Grafica.Estructura
@@ -12,6 +13,8 @@ namespace Grafica.Estructura
         public Vector3 scale = Vector3.One;
 
         public Matrix4 modelObject = Matrix4.Identity;
+
+        public Movement movement;
 
         public int partCount = 0;
         public Hashtable parts = new Hashtable();

@@ -6,8 +6,8 @@ namespace Grafica.MyGame.Parts
 {
     class Wall : Parte
     {
-        float heigh;
-        float width;
+        float heigh = 1.5f;
+        float width = 0.4f;
         uint[] index = {
             0, 1, 2,
             2, 3, 0,
@@ -30,8 +30,6 @@ namespace Grafica.MyGame.Parts
         public Wall()
         {
             vertexCount = index.Length;
-            heigh = 2.5f;
-            width = 0.5f;
         }
 
         public override void CalculateMatrix()

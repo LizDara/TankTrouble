@@ -1,11 +1,6 @@
 ﻿using Grafica.Estructura;
 using Grafica.Rendering;
 using OpenTK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grafica.MyGame.Parts
 {
@@ -31,6 +26,7 @@ namespace Grafica.MyGame.Parts
 
         public void setVertex(float[] vertex, int count)
         {
+            this.vertex = vertex;
             vertexCount = count;
             renderObject = new RenderObject(vertex);
             renderObject.setVertexCount(vertexCount);

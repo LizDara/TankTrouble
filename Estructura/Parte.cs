@@ -16,6 +16,7 @@ namespace Grafica.Estructura
         public RenderObject renderObject;
         public Texture texture;
 
+        public float[] vertex;
         public int vertexCount;
 
         public string key;

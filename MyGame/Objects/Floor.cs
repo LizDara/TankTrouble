@@ -1,11 +1,6 @@
 ﻿using Grafica.Estructura;
 using Grafica.MyGame.Parts;
 using OpenTK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grafica.MyGame.Objects
 {

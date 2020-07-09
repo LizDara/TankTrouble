@@ -19,8 +19,8 @@ namespace Grafica.Rendering
                 objectScene.CalculateMatrix();
                 foreach (Parte partObject in objectScene.parts.Values)
                 {
-                    partObject.renderObject.bind();
                     partObject.CalculateMatrix();
+                    partObject.renderObject.bind();
                     Matrix4 matrix = 
                         partObject.model * objectScene.modelObject * scene.modelScene * scene.viewProjection;
                     partObject.texture.Use();

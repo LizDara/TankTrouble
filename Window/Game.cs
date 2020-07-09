@@ -4,6 +4,9 @@ using OpenTK.Graphics.OpenGL;
 using Grafica.Rendering;
 using OpenTK.Input;
 using Grafica.MyGame;
+using Grafica.Controllers;
+using Grafica.MyGame.Objects;
+using Grafica.Estructura;
 
 namespace Grafica.Window
 {
@@ -11,6 +14,7 @@ namespace Grafica.Window
     {
         GameScene scene;
         RenderFrame render;
+        Controller controller;
         float speed = 1.5f;
         public Game(int width, int height, string title) : base(width, height, default, title)
         {
@@ -20,8 +24,12 @@ namespace Grafica.Window
         {
             scene = new GameScene();
             render = new RenderFrame();
+            controller = new Controller();
             scene.SetMatrixProjection(
                 Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), Width / Height, 0.1f, 50.0f));
+            controller.addObject((Objeto)scene.objects["labyrinth"]);
+            controller.addObject((Objeto)scene.objects["tank"]);
+            controller.moveObject();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -42,6 +50,11 @@ namespace Grafica.Window
             base.OnRenderFrame(e);
         }
 
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+        }
+
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
@@ -51,53 +64,67 @@ namespace Grafica.Window
 
         protected override void OnUnload(EventArgs e)
         {
+            controller.dispose();
             scene.shader.Dispose();
 
             base.OnUnload(e);
         }
 
-        protected override void OnUpdateFrame(FrameEventArgs e)
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
         {
-            if (!Focused)
-                return;
-
-            KeyboardState input = OpenTK.Input.Keyboard.GetState();
-
-            if (input.IsKeyDown(Key.W))
+            if (e.Key.Equals(Key.Up))//0
             {
-                scene.moveTank(new Vector3(0.0f, 0.0f, 0.1f), "t");
-                //scene.position += scene.front * speed * (float)e.Time; //Forward
+                System.Console.WriteLine("Down");
+                controller.addKey(Key.Up);
             }
 
-            if (input.IsKeyDown(Key.S))
+            if (e.Key.Equals(Key.Down))//1
             {
-                scene.moveTank(new Vector3(0.0f, 0.0f, -0.1f), "t");
-                //scene.position -= scene.front * speed * (float)e.Time; //Backwards
+                controller.addKey(Key.Down);
             }
 
-            if (input.IsKeyDown(Key.A))
+            if (e.Key.Equals(Key.Left))//2
             {
-                scene.moveTank(new Vector3(0.0f, 5.0f, 0.0f), "r");
-                //scene.position -= Vector3.Normalize(Vector3.Cross(scene.front, scene.up)) * speed * (float)e.Time; //Left
+                controller.addKey(Key.Left);
             }
 
-            if (input.IsKeyDown(Key.D))
+            if (e.Key.Equals(Key.Right))//3
             {
-                scene.moveTank(new Vector3(0.0f, -5.0f, 0.0f), "r");
-                //scene.position += Vector3.Normalize(Vector3.Cross(scene.front, scene.up)) * speed * (float)e.Time; //Right
+                controller.addKey(Key.Right);
             }
 
-            if (input.IsKeyDown(Key.Space))
+            if (e.Key.Equals(Key.Space))
             {
-                scene.position += scene.up * speed * (float)e.Time; //Up
+                //Shoot
+            }
+            
+            base.OnKeyDown(e);
+        }
+
+        protected override void OnKeyUp(KeyboardKeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Up))//0
+            {
+                System.Console.WriteLine("Up");
+                controller.deleteKey(Key.Up);
             }
 
-            if (input.IsKeyDown(Key.LShift))
+            if (e.Key.Equals(Key.Down))//1
             {
-                scene.position -= scene.up * speed * (float)e.Time; //Down
+                controller.deleteKey(Key.Down);
             }
 
-            base.OnUpdateFrame(e);
+            if (e.Key.Equals(Key.Right))//2
+            {
+                controller.deleteKey(Key.Right);
+            }
+
+            if (e.Key.Equals(Key.Left))//3
+            {
+                controller.deleteKey(Key.Left);
+            }
+
+            base.OnKeyUp(e);
         }
     }
 }

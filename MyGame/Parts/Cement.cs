@@ -6,11 +6,11 @@ namespace Grafica.MyGame.Parts
 {
     class Cement : Parte
     {
-        float[] vertex = {
-            -8.0f,  0.0f,  8.0f,    0.0f, 1.0f,
-             8.0f,  0.0f,  8.0f,    1.0f, 1.0f,
-             8.0f,  0.0f, -8.0f,    1.0f, 0.0f,
-            -8.0f,  0.0f, -8.0f,    0.0f, 0.0f
+        public float[] vertexCement = {
+            -5.5f,  0.0f,  5.5f,    0.0f, 1.0f,
+             5.5f,  0.0f,  5.5f,    1.0f, 1.0f,
+             5.5f,  0.0f, -5.5f,    1.0f, 0.0f,
+            -5.5f,  0.0f, -5.5f,    0.0f, 0.0f
         };
         uint[] index = {
             0, 1, 2,
@@ -19,6 +19,7 @@ namespace Grafica.MyGame.Parts
         public Cement()
         {
             key = "cement";
+            vertex = vertexCement;
             renderObject = new RenderObject(vertex, index);
             vertexCount = index.Length;
             renderObject.setVertexCount(vertexCount);

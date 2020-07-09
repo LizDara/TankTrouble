@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\Executor.cs" />
+    <Compile Include="MyGame\Movement.cs" />
     <Compile Include="Controllers\Planner.cs" />
     <Compile Include="Estructura\Escenario.cs" />
     <Compile Include="Estructura\Objeto.cs" />
@@ -102,9 +103,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Recursos\T34.obj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Recursos\t_34_obj.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

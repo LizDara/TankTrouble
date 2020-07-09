@@ -28,6 +28,5 @@ C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\De
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.exe
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.pdb
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.csprojAssemblyReference.cache
-C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\t_34_obj.obj
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\T34.obj
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflajeverde.jpg

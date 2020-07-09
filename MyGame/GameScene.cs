@@ -13,7 +13,7 @@ namespace Grafica.MyGame
         public GameScene()
         {
             shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
-            position = new Vector3(0.0f, 20.0f, 0.0f);
+            position = new Vector3(0.0f, 18.0f, 0.0f);
             front = new Vector3(0.0f, 0.0f, 0.0f);
             up = new Vector3(0.0f, 0.0f, -1.0f);
             labyrinth = new Labyrinth();
@@ -53,22 +53,6 @@ namespace Grafica.MyGame
         public void SetMatrixProjection(Matrix4 projection)
         {
             this.projection = projection;
-        }
-
-        public void moveTank(Vector3 vector, string type)
-        {
-            Objeto obj = (Objeto)objects["tank"];
-            switch (type)
-            {
-                case "t":
-                    obj.translation += vector;
-                    break;
-                case "r":
-                    obj.rotation += vector;
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }
