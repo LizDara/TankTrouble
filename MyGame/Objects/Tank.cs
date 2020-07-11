@@ -21,8 +21,8 @@ namespace Grafica.MyGame.Objects
 
         public void init()
         {
-            center = new Vector3(-3.7f, 1.3638055f, 3.9f);//-3.5f
-            movement.radius = 0.5f;
+            center = new Vector3(-3.7f, 1.3638055f, 3.9f);//-3.7f  3.9f
+            movement.radius = 0.63f;
             movement.direction = Movement.Directions.PlusX;
             rotation = new Vector3(0.0f, 90.0f, 0.0f);
             translation = new Vector3(-3.7f, 0.0f, 3.9f);

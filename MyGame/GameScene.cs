@@ -13,7 +13,7 @@ namespace Grafica.MyGame
         public GameScene()
         {
             shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
-            position = new Vector3(0.0f, 18.0f, 0.0f);
+            position = new Vector3(0.0f, 16.0f, 0.0f);//16.0f
             front = new Vector3(0.0f, 0.0f, 0.0f);
             up = new Vector3(0.0f, 0.0f, -1.0f);
             labyrinth = new Labyrinth();
@@ -53,6 +53,28 @@ namespace Grafica.MyGame
         public void SetMatrixProjection(Matrix4 projection)
         {
             this.projection = projection;
+        }
+
+        public void DrawScene()
+        {
+            shader.Use();
+            CalculateViewProjection();
+            CalculateMatrix();
+
+            foreach (Objeto objectScene in objects.Values)
+            {
+                objectScene.CalculateMatrix();
+                foreach (Parte partObject in objectScene.parts.Values)
+                {
+                    partObject.CalculateMatrix();
+                    partObject.renderObject.bind();
+                    Matrix4 matrix =
+                        partObject.model * objectScene.modelObject * modelScene * viewProjection;
+                    partObject.texture.Use();
+                    shader.SetMatrix4("projection", matrix);
+                    partObject.renderObject.render(objectScene.obj);
+                }
+            }
         }
     }
 }

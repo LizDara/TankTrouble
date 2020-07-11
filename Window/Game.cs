@@ -25,8 +25,9 @@ namespace Grafica.Window
             scene = new GameScene();
             render = new RenderFrame();
             controller = new Controller();
-            scene.SetMatrixProjection(
-                Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), Width / Height, 0.1f, 50.0f));
+            //scene.SetMatrixProjection(
+            //    Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), Width / Height, 0.1f, 20.0f));
+            scene.SetMatrixProjection(Matrix4.CreateOrthographicOffCenter(-6.0f, 6.0f, -6.0f, 6.0f, 0.1f, 20.0f));
             controller.addObject((Objeto)scene.objects["labyrinth"]);
             controller.addObject((Objeto)scene.objects["tank"]);
             controller.moveObject();

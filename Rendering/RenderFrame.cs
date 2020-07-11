@@ -1,4 +1,5 @@
 ﻿using Grafica.Estructura;
+using Grafica.MyGame;
 using OpenTK;
 
 namespace Grafica.Rendering
@@ -9,9 +10,10 @@ namespace Grafica.Rendering
         {
 
         }
-        public void Draw(Escenario scene)
+        public void Draw(GameScene scene)
         {
-            scene.shader.Use();
+            scene.DrawScene();
+            /*scene.shader.Use();
             scene.CalculateViewProjection();
             scene.CalculateMatrix();
             foreach (Objeto objectScene in scene.objects.Values)
@@ -27,7 +29,7 @@ namespace Grafica.Rendering
                     scene.shader.SetMatrix4("projection", matrix);
                     partObject.renderObject.render(objectScene.obj);
                 }
-            }
+            }*/
         }
     }
 }

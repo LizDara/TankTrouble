@@ -78,8 +78,8 @@ namespace Grafica.MyGame.Parts
 
                     begin.X,    heigh,  begin.Y,            0.0f, 0.0f,//top
                     end.X,      heigh,  end.Y,              1.0f, 0.0f,
-                    end.X,      heigh,  end.Y - width,      1.0f, 1.0f,
-                    begin.X,    heigh,  begin.Y - width,    0.0f, 1.0f
+                    end.X,      heigh,  end.Y - width,      1.0f, 0.15f,
+                    begin.X,    heigh,  begin.Y - width,    0.0f, 0.15f
                 };
                 renderObject = new RenderObject(vertex, index);
             }
@@ -111,10 +111,10 @@ namespace Grafica.MyGame.Parts
                     begin.X + width,    0,      begin.Y,    1.0f, 1.0f,
                     end.X + width,      0,      end.Y,      0.0f, 1.0f,
 
-                    end.X,              heigh,  end.Y,      0.0f, 0.0f,//bottom
+                    end.X,              heigh,  end.Y,      0.0f, 0.0f,//top
                     begin.X,            heigh,  begin.Y,    1.0f, 0.0f,
-                    begin.X + width,    heigh,  begin.Y,    1.0f, 1.0f,
-                    end.X + width,      heigh,  end.Y,      0.0f, 1.0f
+                    begin.X + width,    heigh,  begin.Y,    1.0f, 0.15f,
+                    end.X + width,      heigh,  end.Y,      0.0f, 0.15f
                 };
                 renderObject = new RenderObject(vertex, index);
             }

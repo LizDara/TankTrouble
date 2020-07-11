@@ -96,7 +96,7 @@ namespace Grafica.Controllers
                                 foreach (Vector2[] pairVector in listCloserWall)
                                 {
                                     if (pairVector[0].Y < tank.center.Z &&
-                                    (tank.center.Z - tank.movement.radius) <= (pairVector[0].Y + width))
+                                    (tank.center.Z - tank.movement.radius) <= (pairVector[0].Y))
                                         move = false;
                                 }
                                 if (move)

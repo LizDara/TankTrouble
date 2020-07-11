@@ -7,10 +7,10 @@ namespace Grafica.MyGame.Parts
     class Cement : Parte
     {
         public float[] vertexCement = {
-            -5.5f,  0.0f,  5.5f,    0.0f, 1.0f,
-             5.5f,  0.0f,  5.5f,    1.0f, 1.0f,
+            -5.1f,  0.0f,  5.1f,    0.0f, 1.0f,
+             5.5f,  0.0f,  5.1f,    1.0f, 1.0f,
              5.5f,  0.0f, -5.5f,    1.0f, 0.0f,
-            -5.5f,  0.0f, -5.5f,    0.0f, 0.0f
+            -5.1f,  0.0f, -5.5f,    0.0f, 0.0f
         };
         uint[] index = {
             0, 1, 2,
