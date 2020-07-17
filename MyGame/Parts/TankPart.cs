@@ -19,11 +19,6 @@ namespace Grafica.MyGame.Parts
                 Matrix4.CreateTranslation(translation);
         }
 
-        public override void SetTexture(string path)
-        {
-            texture = new Texture(path);
-        }
-
         public void setVertex(float[] vertex, int count)
         {
             this.vertex = vertex;

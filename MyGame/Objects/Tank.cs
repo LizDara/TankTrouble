@@ -1,6 +1,7 @@
 ﻿using Grafica.Estructura;
 using Grafica.LoadFiles;
 using Grafica.MyGame.Parts;
+using Grafica.Rendering;
 using OpenTK;
 
 namespace Grafica.MyGame.Objects
@@ -8,25 +9,35 @@ namespace Grafica.MyGame.Objects
     class Tank : Objeto
     {
         ObjLoader objLoader;
-        public Tank()
+        public float x;
+        public float z;
+        public Tank(float x, float z)
         {
-            key = "tank";
             obj = true;
+            this.x = x;
+            this.z = z;
             movement = new Movement();
-            objLoader = new ObjLoader("Recursos/T34.obj");
+            objLoader = new ObjLoader("Recursos/T-34.obj");
             TankPart tankPart = new TankPart();
-            addPart("tankPart", tankPart);
             init();
+            addPart("tankPart", tankPart);
         }
 
         public void init()
         {
-            center = new Vector3(-3.7f, 1.3638055f, 3.9f);//-3.7f  3.9f
-            movement.radius = 0.63f;
-            movement.direction = Movement.Directions.PlusX;
-            rotation = new Vector3(0.0f, 90.0f, 0.0f);
-            translation = new Vector3(-3.7f, 0.0f, 3.9f);
-            scale = new Vector3(0.15f, 0.15f, 0.15f);
+            //objLoader.center(0.8138175f, 0.0f, 0.1832345f);//T34.obj
+            objLoader.center(0.0f, -3.03708f, -1.0f);
+            center = new Vector3(x, 1.3638055f, z);//-3.7f  3.9f
+            //movement.radius = 0.63f;//T34.obj
+            movement.radius = 0.58f;
+            translation = new Vector3(x, 0.0f, z);
+            //scale = new Vector3(0.15f, 0.15f, 0.15f);//T34.obj
+            scale = new Vector3(0.0015f, 0.0015f, 0.0015f);
+        }
+
+        public void setTexture(string path)
+        {
+            texture = new Texture(path);
         }
 
         public override void CalculateMatrix()
@@ -51,7 +62,6 @@ namespace Grafica.MyGame.Objects
         public void addPart(string key, TankPart part)
         {
             objLoader.objLoad();
-            part.SetTexture("Recursos/camuflajeverde.jpg");
             part.setVertex(objLoader.vertex, objLoader.vertexIndex.Count);
             parts.Add(key, part);
             partCount++;

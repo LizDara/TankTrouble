@@ -3,6 +3,7 @@ using Grafica.MyGame.Parts;
 using Grafica.LoadFiles;
 using OpenTK;
 using System.Collections.Generic;
+using Grafica.Rendering;
 
 namespace Grafica.MyGame.Objects
 {
@@ -10,12 +11,25 @@ namespace Grafica.MyGame.Objects
     {
         Parser parser;
         public List<Vector2[]> listVertex;
+        public float sizeX;
+        public float sizeZ;
+        public float firstPositionX;
+        public float firstPositionZ;
+        public float secondPositionX;
+        public float secondPositionZ;
         public Labyrinth()
         {
             key = "labyrinth";
             obj = false;
+            texture = new Texture("Recursos/plomo4.jpg");
             parser = new Parser("Recursos/laberinto.txt");
-            parser.findVertex();
+            parser.loadVertex();
+            sizeX = parser.sizeX;
+            sizeZ = parser.sizeZ;
+            firstPositionX = parser.firstPositionX;
+            firstPositionZ = parser.firstPositionZ;
+            secondPositionX = parser.secondPositionX;
+            secondPositionZ = parser.secondPositionZ;
             listVertex = parser.listVertex;
             createPart();
         }
@@ -41,7 +55,6 @@ namespace Grafica.MyGame.Objects
 
         public void addPart(string key, Wall part)
         {
-            part.SetTexture("Recursos/pared8.jpg");
             parts.Add(key, part);
             partCount++;
         }

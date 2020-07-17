@@ -12,9 +12,19 @@ namespace Grafica.LoadFiles
         public List<uint> vertexIndex = new List<uint>();
         List<uint> textureIndex = new List<uint>();
         public float[] vertex;
+        float x = 0.0f;
+        float y = 0.0f;
+        float z = 0.0f;
         public ObjLoader(string path)
         {
             file = new StreamReader(path);
+        }
+
+        public void center(float x, float y, float z)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
 
         public void objLoad()
@@ -68,61 +78,45 @@ namespace Grafica.LoadFiles
         {
             vertex = new float[(vertexIndex.Count * 3) + (textureIndex.Count * 2)];
 
+            float mayX = 0;
+            float menX = 0;
             float mayY = 0;
             float menY = 0;
+            float mayZ = 0;
+            float menZ = 0;
             int v = 0;
             for (int i = 0; i < vertexIndex.Count; i++)
             {
                 int vi = (int)vertexIndex[i];
                 int ti = (int)textureIndex[i];
-                vertex[v] = vertexList[vi].X - 0.8138175f;
-                vertex[v + 1] = vertexList[vi].Y;
-                vertex[v + 2] = vertexList[vi].Z - 0.1832345f; //radio = 3.9849515
+                vertex[v] = vertexList[vi].X - x;
+                vertex[v + 1] = vertexList[vi].Y - y;
+                vertex[v + 2] = vertexList[vi].Z - z;
                 vertex[v + 3] = textureList[ti].X;
                 vertex[v + 4] = textureList[ti].Y;
-                if (mayY < vertex[v])
-                    mayY = vertex[v];
-                if (menY > vertex[v])
-                    menY = vertex[v];
+
+                if (mayX < vertex[v])
+                    mayX = vertex[v];
+                if (menX > vertex[v])
+                    menX = vertex[v];
+
+                if (mayY < vertex[v + 1])
+                    mayY = vertex[v + 1];
+                if (menY > vertex[v + 1])
+                    menY = vertex[v + 1];
+                
+                if (mayZ < vertex[v + 2])
+                    mayZ = vertex[v + 2];
+                if (menZ > vertex[v + 2])
+                    menZ = vertex[v + 2];
                 v += 5;
             }
-            System.Console.WriteLine("Mayor: " + mayY);
-            System.Console.WriteLine("Menor: " + menY);
-            /*vertex[v + 0] = -6.0f;
-            vertex[v + 1] = 0.0f;
-            vertex[v + 2] = 6.0f;
-            vertex[v + 3] = 0.0f;
-            vertex[v + 4] = 1.0f;
-
-            vertex[v + 5] = 6.0f;
-            vertex[v + 6] = 0.0f;
-            vertex[v + 7] = 6.0f;
-            vertex[v + 8] = 1.0f;
-            vertex[v + 9] = 1.0f;
-
-            vertex[v + 10] = 6.0f;
-            vertex[v + 11] = 0.0f;
-            vertex[v + 12] = -6.0f;
-            vertex[v + 13] = 1.0f;
-            vertex[v + 14] = 0.0f;
-            
-            vertex[v + 15] = 6.0f;
-            vertex[v + 16] = 0.0f;
-            vertex[v + 17] = -6.0f;
-            vertex[v + 18] = 1.0f;
-            vertex[v + 19] = 0.0f;
-
-            vertex[v + 20] = -6.0f;
-            vertex[v + 21] = 0.0f;
-            vertex[v + 22] = -6.0f;
-            vertex[v + 23] = 0.0f;
-            vertex[v + 24] = 0.0f;
-
-            vertex[v + 25] = -6.0f;
-            vertex[v + 26] = 0.0f;
-            vertex[v + 27] = 6.0f;
-            vertex[v + 28] = 0.0f;
-            vertex[v + 29] = 1.0f;*/
+            System.Console.WriteLine("MayX: " + mayX);
+            System.Console.WriteLine("MenX: " + menX);
+            System.Console.WriteLine("MayY: " + mayY);
+            System.Console.WriteLine("MenY: " + menY);
+            System.Console.WriteLine("MayZ: " + mayZ);
+            System.Console.WriteLine("MenZ: " + menZ);
         }
     }
 }

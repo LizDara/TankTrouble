@@ -2,85 +2,137 @@
 using Grafica.MyGame.Objects;
 using OpenTK;
 using OpenTK.Input;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Grafica.Controllers
 {
     class Controller
     {
-        bool[] stateKey = new bool[4];
+        bool[] firstStateKey = new bool[4];
+        bool[] secondStateKey = new bool[4];
         Planner planner;
         Executor executor;
-        List<Objeto> objects;
-        Tank tank;
+        Hashtable objects;
         Labyrinth labyrinth;
+        Tank firstTank;
+        Tank secondTank;
         public Controller()
         {
             planner = new Planner();
             executor = new Executor();
-            objects = new List<Objeto>();
-            for (int i = 0; i < stateKey.Length; i++)
-                stateKey[i] = false;
+            objects = new Hashtable();
+            for (int i = 0; i < firstStateKey.Length; i++)
+                firstStateKey[i] = false;
+            for (int i = 0; i < secondStateKey.Length; i++)
+                secondStateKey[i] = false;
         }
 
-        public void addObject(Objeto obj)
+        public void addObjects(Hashtable objects)
         {
-            objects.Add(obj);
+            this.objects = objects;
         }
 
         public void addKey(Key key)
         {
             switch (key)
             {
-                case Key.Up:
-                    stateKey[0] = true;
+                case Key.Up://First Tank
+                    firstStateKey[0] = true;
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Down:
-                    stateKey[1] = true;
+                    firstStateKey[1] = true;
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Right:
-                    stateKey[2] = true;
-                    tank.rotation += new Vector3(0.0f, tank.movement.angle * (-1), 0.0f);
+                    firstStateKey[2] = true;
+                    firstTank.rotation += new Vector3(0.0f, firstTank.movement.angle * (-1), 0.0f);
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Left:
-                    stateKey[3] = true;
-                    tank.rotation += new Vector3(0.0f, tank.movement.angle, 0.0f);
+                    firstStateKey[3] = true;
+                    firstTank.rotation += new Vector3(0.0f, firstTank.movement.angle, 0.0f);
+                    planner.changeState(firstStateKey, firstTank);
+                    break;
+                case Key.Space:
+                    planner.addBullet(objects, firstTank);
+                    break;
+                case Key.W://Second Tank
+                    secondStateKey[0] = true;
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.S:
+                    secondStateKey[1] = true;
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.D:
+                    secondStateKey[2] = true;
+                    firstTank.rotation += new Vector3(0.0f, secondTank.movement.angle * (-1), 0.0f);
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.A:
+                    secondStateKey[3] = true;
+                    firstTank.rotation += new Vector3(0.0f, secondTank.movement.angle, 0.0f);
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.Q:
+                    planner.addBullet(objects, secondTank);
                     break;
             }
-            planner.changeState(stateKey, tank.movement);
         }
 
         public void deleteKey(Key key)
         {
             switch (key)
             {
-                case Key.Up:
-                    stateKey[0] = false;
+                case Key.Up://First Tank
+                    firstStateKey[0] = false;
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Down:
-                    stateKey[1] = false;
+                    firstStateKey[1] = false;
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Right:
-                    stateKey[2] = false;
+                    firstStateKey[2] = false;
+                    planner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Left:
-                    stateKey[3] = false;
+                    firstStateKey[3] = false;
+                    planner.changeState(firstStateKey, firstTank);
+                    break;
+                case Key.W://Second Tank
+                    secondStateKey[0] = false;
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.S:
+                    secondStateKey[1] = false;
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.D:
+                    secondStateKey[2] = false;
+                    planner.changeState(secondStateKey, secondTank);
+                    break;
+                case Key.A:
+                    secondStateKey[3] = false;
+                    planner.changeState(secondStateKey, secondTank);
                     break;
             }
-            planner.changeState(stateKey, tank.movement);
         }
 
         public void moveObject()
         {
             setObjects();
             setWalls();
-            executor.run(tank);
+            executor.run(objects);
         }
 
         public void setObjects()
         {
-            labyrinth = (Labyrinth)objects[0];
-            tank = (Tank)objects[1];
+            labyrinth = (Labyrinth)objects["labyrinth"];
+            firstTank = (Tank)objects["tank1"];
+            secondTank = (Tank)objects["tank2"];
         }
 
         public void setWalls()

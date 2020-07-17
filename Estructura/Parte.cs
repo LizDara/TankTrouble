@@ -14,7 +14,6 @@ namespace Grafica.Estructura
         public Matrix4 model = Matrix4.Identity;
 
         public RenderObject renderObject;
-        public Texture texture;
 
         public float[] vertex;
         public int vertexCount;
@@ -22,6 +21,5 @@ namespace Grafica.Estructura
         public string key;
 
         public abstract void CalculateMatrix();
-        public abstract void SetTexture(string path);
     }
 }

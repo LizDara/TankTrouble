@@ -10,26 +10,28 @@ namespace Grafica.Rendering
         {
 
         }
-        public void Draw(GameScene scene)
+        public void Draw(Escenario scene)
         {
-            scene.DrawScene();
-            /*scene.shader.Use();
+            scene.shader.Use();
             scene.CalculateViewProjection();
             scene.CalculateMatrix();
             foreach (Objeto objectScene in scene.objects.Values)
             {
-                objectScene.CalculateMatrix();
-                foreach (Parte partObject in objectScene.parts.Values)
+                if (objectScene.draw)
                 {
-                    partObject.CalculateMatrix();
-                    partObject.renderObject.bind();
-                    Matrix4 matrix = 
-                        partObject.model * objectScene.modelObject * scene.modelScene * scene.viewProjection;
-                    partObject.texture.Use();
-                    scene.shader.SetMatrix4("projection", matrix);
-                    partObject.renderObject.render(objectScene.obj);
+                    objectScene.CalculateMatrix();
+                    objectScene.texture.Use();
+                    foreach (Parte partObject in objectScene.parts.Values)
+                    {
+                        partObject.CalculateMatrix();
+                        partObject.renderObject.bind();
+                        Matrix4 matrix =
+                            partObject.model * objectScene.modelObject * scene.modelScene * scene.viewProjection;
+                        scene.shader.SetMatrix4("projection", matrix);
+                        partObject.renderObject.render(objectScene.obj);
+                    }
                 }
-            }*/
+            }
         }
     }
 }

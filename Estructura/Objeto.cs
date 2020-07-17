@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Grafica.MyGame;
+using Grafica.Rendering;
 using OpenTK;
 
 namespace Grafica.Estructura
@@ -14,6 +15,7 @@ namespace Grafica.Estructura
 
         public Matrix4 modelObject = Matrix4.Identity;
 
+        public Texture texture;
         public Movement movement;
 
         public int partCount = 0;
@@ -21,6 +23,7 @@ namespace Grafica.Estructura
 
         public string key;
         public bool obj;
+        public bool draw = true;
 
         public abstract void CalculateMatrix();
     }

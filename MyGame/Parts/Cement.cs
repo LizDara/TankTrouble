@@ -6,12 +6,18 @@ namespace Grafica.MyGame.Parts
 {
     class Cement : Parte
     {
-        public float[] vertexCement = {
+        /*public float[] vertexCement = {
             -5.1f,  0.0f,  5.1f,    0.0f, 1.0f,
              5.5f,  0.0f,  5.1f,    1.0f, 1.0f,
              5.5f,  0.0f, -5.5f,    1.0f, 0.0f,
             -5.1f,  0.0f, -5.5f,    0.0f, 0.0f
         };
+        public float[] vertexCement = {
+            -10.1f,  0.0f,  10.1f,    0.0f, 1.0f,
+             10.5f,  0.0f,  10.1f,    1.0f, 1.0f,
+             10.5f,  0.0f, -10.5f,    1.0f, 0.0f,
+            -10.1f,  0.0f, -10.5f,    0.0f, 0.0f
+        };*/
         uint[] index = {
             0, 1, 2,
             2, 3, 0
@@ -19,10 +25,7 @@ namespace Grafica.MyGame.Parts
         public Cement()
         {
             key = "cement";
-            vertex = vertexCement;
-            renderObject = new RenderObject(vertex, index);
             vertexCount = index.Length;
-            renderObject.setVertexCount(vertexCount);
         }
 
         public override void CalculateMatrix()
@@ -34,9 +37,17 @@ namespace Grafica.MyGame.Parts
                 Matrix4.CreateTranslation(translation);
         }
 
-        public override void SetTexture(string path)
+        public void setVertex(float x, float z)
         {
-            texture = new Texture(path);
+            float[] vertexCement = {
+            -x - 0.1f,  0.0f,  z + 0.1f,    0.0f, 1.0f,
+             x + 0.5f,  0.0f,  z + 0.1f,    1.0f, 1.0f,
+             x + 0.5f,  0.0f, -z - 0.5f,    1.0f, 0.0f,
+            -x - 0.1f,  0.0f, -z - 0.5f,    0.0f, 0.0f
+            };
+            vertex = vertexCement;
+            renderObject = new RenderObject(vertex, index);
+            renderObject.setVertexCount(vertexCount);
         }
     }
 }

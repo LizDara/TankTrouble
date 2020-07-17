@@ -1,6 +1,4 @@
-C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\cemento2.jpg
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\laberinto.txt
-C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\pared8.jpg
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\shader.frag
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\shader.vert
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Grafica.exe.config
@@ -29,4 +27,13 @@ C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\De
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.pdb
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.csprojAssemblyReference.cache
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\T34.obj
-C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflajeverde.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflaje.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\cafe6.png
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\muro.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\plomo4.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\bullet.obj
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\Bowling.obj
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\negro2.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\laberinto2.txt
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflaje2.jpg
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\T-34.obj

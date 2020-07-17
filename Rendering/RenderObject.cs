@@ -10,6 +10,7 @@ namespace Grafica.Rendering
         private int VertexArrayObject;
         private int ElementBufferObject;
         private int vertexCount;
+        public Texture texture;
         public RenderObject(float[] vertex, uint[] index)
         {
             createBuffer();

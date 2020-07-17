@@ -1,18 +1,21 @@
 ﻿using Grafica.Estructura;
 using Grafica.MyGame.Parts;
+using Grafica.Rendering;
 using OpenTK;
 
 namespace Grafica.MyGame.Objects
 {
     class Floor : Objeto
     {
-        Parte cement;
-        public Floor()
+        Cement cement;
+        public Floor(float x, float z)
         {
             key = "floor";
             obj = false;
+            texture = new Texture("Recursos/cafe6.png");
             cement = new Cement();
-            addPart(cement.key, cement, "Recursos/cemento2.jpg");
+            cement.setVertex(x, z);
+            addPart(cement.key, cement);
         }
 
         public override void CalculateMatrix()
@@ -24,9 +27,8 @@ namespace Grafica.MyGame.Objects
                 Matrix4.CreateTranslation(translation);
         }
 
-        public void addPart(string key, Parte part, string path)
+        public void addPart(string key, Parte part)
         {
-            part.SetTexture(path);
             parts.Add(key, part);
             partCount++;
         }

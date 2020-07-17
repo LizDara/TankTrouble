@@ -7,26 +7,42 @@ namespace Grafica.MyGame
 {
     class GameScene : Escenario
     {
-        Objeto labyrinth;
-        Objeto tank;
-        Objeto floor;
+        Labyrinth labyrinth;
+        Tank firstTank;
+        Tank secondTank;
+        Floor floor;
         public GameScene()
         {
-            shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
-            position = new Vector3(0.0f, 16.0f, 0.0f);//16.0f
-            front = new Vector3(0.0f, 0.0f, 0.0f);
-            up = new Vector3(0.0f, 0.0f, -1.0f);
+            init();
             labyrinth = new Labyrinth();
-            tank = new Tank();
-            floor = new Floor();
-            addObject(labyrinth.key, labyrinth);
-            addObject(tank.key, tank);
-            addObject(floor.key, floor);
+            floor = new Floor(labyrinth.sizeX, labyrinth.sizeZ);
+            firstTank = new Tank(labyrinth.firstPositionX, labyrinth.firstPositionZ);
+            firstTank.setTexture("Recursos/camuflaje.jpg");
+            firstTank.movement.direction = Movement.Directions.PlusX;
+            firstTank.rotation = new Vector3(0.0f, 90.0f, 0.0f);
+            firstTank.key = "tank1";
+            secondTank = new Tank(labyrinth.secondPositionX, labyrinth.secondPositionZ);
+            secondTank.setTexture("Recursos/camuflaje2.jpg");
+            secondTank.movement.direction = Movement.Directions.MinusX;
+            secondTank.rotation = new Vector3(0.0f, -90.0f, 0.0f);
+            secondTank.key = "tank2";
+            addObject(labyrinth);
+            addObject(floor);
+            addObject(firstTank);
+            addObject(secondTank);
         }
 
-        public void addObject(string key, Objeto obj)
+        public void init()
         {
-            objects.Add(key, obj);
+            shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
+            position = new Vector3(0.0f, 18.0f, 0.0f);//16.0f Y
+            front = new Vector3(0.0f, 0.0f, 0.0f);
+            up = new Vector3(0.0f, 0.0f, -1.0f);//-1.0f Z
+        }
+
+        public void addObject(Objeto obj)
+        {
+            objects.Add(obj.key, obj);
             objectCount++;
         }
 
@@ -53,28 +69,6 @@ namespace Grafica.MyGame
         public void SetMatrixProjection(Matrix4 projection)
         {
             this.projection = projection;
-        }
-
-        public void DrawScene()
-        {
-            shader.Use();
-            CalculateViewProjection();
-            CalculateMatrix();
-
-            foreach (Objeto objectScene in objects.Values)
-            {
-                objectScene.CalculateMatrix();
-                foreach (Parte partObject in objectScene.parts.Values)
-                {
-                    partObject.CalculateMatrix();
-                    partObject.renderObject.bind();
-                    Matrix4 matrix =
-                        partObject.model * objectScene.modelObject * modelScene * viewProjection;
-                    partObject.texture.Use();
-                    shader.SetMatrix4("projection", matrix);
-                    partObject.renderObject.render(objectScene.obj);
-                }
-            }
         }
     }
 }

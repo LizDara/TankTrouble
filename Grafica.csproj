@@ -78,9 +78,11 @@
     <Compile Include="Estructura\Parte.cs" />
     <Compile Include="LoadFiles\ObjLoader.cs" />
     <Compile Include="MyGame\GameScene.cs" />
+    <Compile Include="MyGame\Objects\Bullet.cs" />
     <Compile Include="MyGame\Objects\Floor.cs" />
     <Compile Include="MyGame\Objects\Labyrinth.cs" />
     <Compile Include="MyGame\Objects\Tank.cs" />
+    <Compile Include="MyGame\Parts\BulletPart.cs" />
     <Compile Include="MyGame\Parts\Cement.cs" />
     <Compile Include="MyGame\Parts\TankPart.cs" />
     <Compile Include="MyGame\Parts\Wall.cs" />
@@ -96,10 +98,19 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Recursos\Bowling.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Recursos\bullet.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Recursos\shader.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Recursos\shader.vert">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Recursos\T-34.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Recursos\T34.obj">
@@ -107,17 +118,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Recursos\camuflajeazul.jpg" />
-    <Content Include="Recursos\camuflajeverde.jpg">
+    <Content Include="Recursos\cafe6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\cemento2.jpg">
+    <Content Include="Recursos\camuflaje.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\camuflaje2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\laberinto.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Recursos\pared8.jpg">
+    <Content Include="Recursos\laberinto2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\muro.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\negro2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\plomo4.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

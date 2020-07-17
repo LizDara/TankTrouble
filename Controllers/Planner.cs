@@ -1,85 +1,111 @@
 ﻿using Grafica.Estructura;
 using Grafica.MyGame;
 using Grafica.MyGame.Objects;
+using OpenTK;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace Grafica.Controllers
 {
     class Planner
     {
+        public int bulletCount = 0;
         public Planner()
         {
 
         }
 
-        public void changeState(bool[] stateKey, Movement movement)
+        public void changeState(bool[] stateKey, Tank tank)
         {
             if (stateKey[0])
             {
-                movement.forward = true;
+                tank.movement.forward = true;
             }
             else
             {
-                movement.forward = false;
+                tank.movement.forward = false;
             }
             if (stateKey[1])
             {
-                movement.backward = true;
+                tank.movement.backward = true;
             }
             else
             {
-                movement.backward = false;
+                tank.movement.backward = false;
             }
             if (stateKey[2])
             {
                 //movement.right = true;
-                switch (movement.direction)
+                switch (tank.movement.direction)
                 {
                     case Movement.Directions.PlusZ:
-                        movement.direction = Movement.Directions.MinusX;
+                        tank.movement.direction = Movement.Directions.MinusX;
                         break;
                     case Movement.Directions.MinusX:
-                        movement.direction = Movement.Directions.MinusZ;
+                        tank.movement.direction = Movement.Directions.MinusZ;
                         break;
                     case Movement.Directions.MinusZ:
-                        movement.direction = Movement.Directions.PlusX;
+                        tank.movement.direction = Movement.Directions.PlusX;
                         break;
                     case Movement.Directions.PlusX:
-                        movement.direction = Movement.Directions.PlusZ;
+                        tank.movement.direction = Movement.Directions.PlusZ;
                         break;
                 }
             }
             else
             {
-                movement.right = false;
+                tank.movement.right = false;
             }
             if (stateKey[3])
             {
                 //movement.left = true;
-                switch (movement.direction)
+                switch (tank.movement.direction)
                 {
                     case Movement.Directions.PlusZ:
-                        movement.direction = Movement.Directions.PlusX;
+                        tank.movement.direction = Movement.Directions.PlusX;
                         break;
                     case Movement.Directions.PlusX:
-                        movement.direction = Movement.Directions.MinusZ;
+                        tank.movement.direction = Movement.Directions.MinusZ;
                         break;
                     case Movement.Directions.MinusZ:
-                        movement.direction = Movement.Directions.MinusX;
+                        tank.movement.direction = Movement.Directions.MinusX;
                         break;
                     case Movement.Directions.MinusX:
-                        movement.direction = Movement.Directions.PlusZ;
+                        tank.movement.direction = Movement.Directions.PlusZ;
                         break;
                 }
             }
             else
             {
-                movement.left = false;
+                tank.movement.left = false;
             }
+        }
+
+        public void addBullet(Hashtable objects, Tank tank)
+        {
+            Bullet bullet = new Bullet();
+            switch (tank.movement.direction)
+            {
+                case Movement.Directions.PlusZ:
+                    bullet.center = tank.center + new Vector3(0.0f, 0.0f, tank.movement.radius);
+                    bullet.translation = tank.translation + new Vector3(0.0f, 0.0f, tank.movement.radius);
+                    break;
+                case Movement.Directions.MinusX:
+                    bullet.center = tank.center + new Vector3(-tank.movement.radius, 0.0f, 0.0f);
+                    bullet.translation = tank.translation + new Vector3(-tank.movement.radius, 0.0f, 0.0f);
+                    break;
+                case Movement.Directions.MinusZ:
+                    bullet.center = tank.center + new Vector3(0.0f, 0.0f, -tank.movement.radius);
+                    bullet.translation = tank.translation + new Vector3(0.0f, 0.0f, -tank.movement.radius);
+                    break;
+                case Movement.Directions.PlusX:
+                    bullet.center = tank.center + new Vector3(tank.movement.radius, 0.0f, 0.1f);
+                    bullet.translation = tank.translation + new Vector3(tank.movement.radius, 0.0f, 0.1f);
+                    break;
+            }
+            bullet.movement.direction = tank.movement.direction;
+            bulletCount++;
+            objects.Add("bullet" + bulletCount, bullet);
         }
     }
 }

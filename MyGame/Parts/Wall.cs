@@ -41,11 +41,6 @@ namespace Grafica.MyGame.Parts
                 Matrix4.CreateTranslation(translation);
         }
 
-        public override void SetTexture(string path)
-        {
-            texture = new Texture(path);
-        }
-
         public void setVertex(Vector2 begin, Vector2 end)
         {
             if (begin.Y.Equals(end.Y))
