@@ -15,7 +15,7 @@ namespace Grafica.MyGame.Objects
             texture = new Texture("Recursos/cafe6.png");
             cement = new Cement();
             cement.setVertex(x, z);
-            addPart(cement.key, cement);
+            addPart(cement);
         }
 
         public override void CalculateMatrix()
@@ -27,9 +27,9 @@ namespace Grafica.MyGame.Objects
                 Matrix4.CreateTranslation(translation);
         }
 
-        public void addPart(string key, Parte part)
+        public void addPart(Parte part)
         {
-            parts.Add(key, part);
+            parts.Add(part.key, part);
             partCount++;
         }
     }

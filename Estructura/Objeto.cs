@@ -22,6 +22,7 @@ namespace Grafica.Estructura
         public Hashtable parts = new Hashtable();
 
         public string key;
+        public string parentKey = "";
         public bool obj;
         public bool draw = true;
 

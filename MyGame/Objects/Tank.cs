@@ -19,19 +19,21 @@ namespace Grafica.MyGame.Objects
             movement = new Movement();
             objLoader = new ObjLoader("Recursos/T-34.obj");
             TankPart tankPart = new TankPart();
+            tankPart.key = "tankPart";
             init();
-            addPart("tankPart", tankPart);
+            addPart(tankPart);
         }
 
         public void init()
         {
             //objLoader.center(0.8138175f, 0.0f, 0.1832345f);//T34.obj
-            objLoader.center(0.0f, -3.03708f, -1.0f);
-            center = new Vector3(x, 1.3638055f, z);//-3.7f  3.9f
             //movement.radius = 0.63f;//T34.obj
-            movement.radius = 0.58f;
-            translation = new Vector3(x, 0.0f, z);
             //scale = new Vector3(0.15f, 0.15f, 0.15f);//T34.obj
+            objLoader.center(-0.095f, -3.03708f, -1.0f);
+            center = new Vector3(x, 1.3638055f, z);
+            movement.radius = 0.57f;
+            movement.width = 0.25f;
+            translation = new Vector3(x, 0.0f, z);
             scale = new Vector3(0.0015f, 0.0015f, 0.0015f);
         }
 
@@ -59,11 +61,11 @@ namespace Grafica.MyGame.Objects
                 Matrix4.CreateTranslation(translation);
         }
 
-        public void addPart(string key, TankPart part)
+        public void addPart(TankPart part)
         {
             objLoader.objLoad();
             part.setVertex(objLoader.vertex, objLoader.vertexIndex.Count);
-            parts.Add(key, part);
+            parts.Add(part.key, part);
             partCount++;
         }
     }

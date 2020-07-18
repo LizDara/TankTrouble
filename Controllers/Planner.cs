@@ -99,13 +99,15 @@ namespace Grafica.Controllers
                     bullet.translation = tank.translation + new Vector3(0.0f, 0.0f, -tank.movement.radius);
                     break;
                 case Movement.Directions.PlusX:
-                    bullet.center = tank.center + new Vector3(tank.movement.radius, 0.0f, 0.1f);
-                    bullet.translation = tank.translation + new Vector3(tank.movement.radius, 0.0f, 0.1f);
+                    bullet.center = tank.center + new Vector3(tank.movement.radius, 0.0f, 0.0f);
+                    bullet.translation = tank.translation + new Vector3(tank.movement.radius, 0.0f, 0.0f);
                     break;
             }
             bullet.movement.direction = tank.movement.direction;
             bulletCount++;
-            objects.Add("bullet" + bulletCount, bullet);
+            bullet.key = "bullet" + bulletCount;
+            bullet.parentKey = tank.key;
+            objects.Add(bullet.key, bullet);
         }
     }
 }

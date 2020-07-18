@@ -56,96 +56,268 @@ namespace Grafica.Controllers
                             switch (movement.direction)
                             {
                                 case Movement.Directions.PlusZ:
-                                    foreach (Vector2[] pairVector in listHorizontal)
-                                    {
-                                        if (pairVector[0].X < obj.center.X && pairVector[1].X > obj.center.X)
-                                            listCloserWall.Add(pairVector);
-                                    }
-                                    foreach (Vector2[] pairVector in listCloserWall)
-                                    {
-                                        if (pairVector[0].Y > obj.center.Z &&
-                                        (obj.center.Z + obj.movement.radius) >= (pairVector[0].Y - width))
+                                    if (i > 1)
+                                    {//Impacto de la bala con algun tanque
+                                        Tank tank;
+                                        if (obj.parentKey.Equals("tank1"))
+                                            tank = (Tank)objects["tank2"];
+                                        else
+                                            tank = (Tank)objects["tank1"];
+
+                                        if (tank.movement.direction == Movement.Directions.PlusZ || 
+                                        tank.movement.direction == Movement.Directions.MinusZ)
                                         {
-                                            move = false;
-                                            if (i > 1)
+                                            if ((tank.center.X - tank.movement.width) < obj.center.X &&
+                                            (tank.center.X + tank.movement.width) > obj.center.X)
                                             {
-                                                obj.draw = false;
-                                                movement.forward = false;
+                                                if ((obj.center.Z + obj.movement.radius) >= (tank.center.Z - tank.movement.radius))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                        if (tank.movement.direction == Movement.Directions.PlusX ||
+                                        tank.movement.direction == Movement.Directions.MinusX)
+                                        {
+                                            if ((tank.center.X - tank.movement.radius) < obj.center.X &&
+                                            (tank.center.X + tank.movement.radius) > obj.center.X)
+                                            {
+                                                if ((obj.center.Z + obj.movement.radius) >= (tank.center.Z - tank.movement.width))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
                                             }
                                         }
                                     }
                                     if (move)
-                                    {
+                                    {//Impacto de algun objeto con alguna pared
+                                        foreach (Vector2[] pairVector in listHorizontal)
+                                        {
+                                            if ((pairVector[0].X < (obj.center.X - obj.movement.width) && pairVector[1].X > (obj.center.X - obj.movement.width)) ||
+                                            (pairVector[0].X < (obj.center.X + obj.movement.width) && pairVector[1].X > (obj.center.X + obj.movement.width)))
+                                                listCloserWall.Add(pairVector);
+                                        }
+                                        foreach (Vector2[] pairVector in listCloserWall)
+                                        {
+                                            if (pairVector[0].Y > obj.center.Z &&
+                                            (obj.center.Z + obj.movement.radius) >= (pairVector[0].Y - width))
+                                            {
+                                                move = false;
+                                                if (i > 1)
+                                                {
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (move)
+                                    {//No hay impacto
                                         obj.center += new Vector3(0.0f, 0.0f, 0.005f);
                                         obj.translation += new Vector3(0.0f, 0.0f, 0.005f);
                                     }
                                     break;
                                 case Movement.Directions.MinusX:
-                                    foreach (Vector2[] pairVector in listVertical)
-                                    {
-                                        if (pairVector[0].Y > obj.center.Z && pairVector[1].Y < obj.center.Z)
-                                            listCloserWall.Add(pairVector);
-                                    }
-                                    foreach (Vector2[] pairVector in listCloserWall)
-                                    {
-                                        if (pairVector[0].X < obj.center.X &&
-                                        (obj.center.X - obj.movement.radius) <= (pairVector[0].X + width))
+                                    if (i > 1)
+                                    {//Impacto de la bala con algun tanque
+                                        Tank tank;
+                                        if (obj.parentKey.Equals("tank1"))
+                                            tank = (Tank)objects["tank2"];
+                                        else
+                                            tank = (Tank)objects["tank1"];
+
+                                        if (tank.movement.direction == Movement.Directions.PlusX ||
+                                        tank.movement.direction == Movement.Directions.MinusX)
                                         {
-                                            move = false;
-                                            if (i > 1)
+                                            if ((tank.center.Z - tank.movement.width) < obj.center.Z &&
+                                            (tank.center.Z + tank.movement.width) > obj.center.Z)
                                             {
-                                                obj.draw = false;
-                                                movement.forward = false;
+                                                if ((obj.center.X - obj.movement.radius) >= (tank.center.X + tank.movement.radius))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                        if (tank.movement.direction == Movement.Directions.PlusZ ||
+                                        tank.movement.direction == Movement.Directions.MinusZ)
+                                        {
+                                            if ((tank.center.Z - tank.movement.radius) < obj.center.Z &&
+                                            (tank.center.Z + tank.movement.radius) > obj.center.Z)
+                                            {
+                                                if ((obj.center.X + obj.movement.radius) >= (tank.center.X - tank.movement.width))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
                                             }
                                         }
                                     }
                                     if (move)
-                                    {
+                                    {//Impacto de algun objeto con alguna pared
+                                        foreach (Vector2[] pairVector in listVertical)
+                                        {
+                                            if ((pairVector[0].Y > (obj.center.Z - obj.movement.width) && pairVector[1].Y < (obj.center.Z - obj.movement.width)) ||
+                                            (pairVector[0].Y > (obj.center.Z + obj.movement.width) && pairVector[1].Y < (obj.center.Z + obj.movement.width)))
+                                                listCloserWall.Add(pairVector);
+                                        }
+                                        foreach (Vector2[] pairVector in listCloserWall)
+                                        {
+                                            if (pairVector[0].X < obj.center.X &&
+                                            (obj.center.X - obj.movement.radius) <= (pairVector[0].X + width))
+                                            {
+                                                move = false;
+                                                if (i > 1)
+                                                {
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (move)
+                                    {//No hay impacto
                                         obj.center += new Vector3(-0.005f, 0.0f, 0.0f);
                                         obj.translation += new Vector3(-0.005f, 0.0f, 0.0f);
                                     }
                                     break;
                                 case Movement.Directions.MinusZ:
-                                    foreach (Vector2[] pairVector in listHorizontal)
-                                    {
-                                        if (pairVector[0].X < obj.center.X && pairVector[1].X > obj.center.X)
-                                            listCloserWall.Add(pairVector);
-                                    }
-                                    foreach (Vector2[] pairVector in listCloserWall)
-                                    {
-                                        if (pairVector[0].Y < obj.center.Z &&
-                                        (obj.center.Z - obj.movement.radius) <= (pairVector[0].Y))
+                                    if (i > 1)
+                                    {//Impacto de la bala con algun tanque
+                                        Tank tank;
+                                        if (obj.parentKey.Equals("tank1"))
+                                            tank = (Tank)objects["tank2"];
+                                        else
+                                            tank = (Tank)objects["tank1"];
+
+                                        if (tank.movement.direction == Movement.Directions.PlusZ ||
+                                        tank.movement.direction == Movement.Directions.MinusZ)
                                         {
-                                            move = false;
-                                            if (i > 1)
+                                            if ((tank.center.X - tank.movement.width) < obj.center.X &&
+                                            (tank.center.X + tank.movement.width) > obj.center.X)
                                             {
-                                                obj.draw = false;
-                                                movement.forward = false;
+                                                if ((obj.center.Z - obj.movement.radius) >= (tank.center.Z + tank.movement.radius))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                        if (tank.movement.direction == Movement.Directions.PlusX ||
+                                        tank.movement.direction == Movement.Directions.MinusX)
+                                        {
+                                            if ((tank.center.X - tank.movement.radius) < obj.center.X &&
+                                            (tank.center.X + tank.movement.radius) > obj.center.X)
+                                            {
+                                                if ((obj.center.Z - obj.movement.radius) >= (tank.center.Z + tank.movement.width))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
                                             }
                                         }
                                     }
                                     if (move)
-                                    {
+                                    {//Impacto de algun objeto con alguna pared
+                                        foreach (Vector2[] pairVector in listHorizontal)
+                                        {
+                                            if ((pairVector[0].X < (obj.center.X - obj.movement.width) && pairVector[1].X > (obj.center.X - obj.movement.width)) ||
+                                            (pairVector[0].X < (obj.center.X + obj.movement.width) && pairVector[1].X > (obj.center.X + obj.movement.width)))
+                                                listCloserWall.Add(pairVector);
+                                        }
+                                        foreach (Vector2[] pairVector in listCloserWall)
+                                        {
+                                            if (pairVector[0].Y < obj.center.Z &&
+                                            (obj.center.Z - obj.movement.radius) <= (pairVector[0].Y))
+                                            {
+                                                move = false;
+                                                if (i > 1)
+                                                {
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (move)
+                                    {//No hay impacto
                                         obj.center += new Vector3(0.0f, 0.0f, -0.005f);
                                         obj.translation += new Vector3(0.0f, 0.0f, -0.005f);
                                     }
                                     break;
                                 case Movement.Directions.PlusX:
-                                    foreach (Vector2[] pairVector in listVertical)
-                                    {
-                                        if (pairVector[0].Y > obj.center.Z && pairVector[1].Y < obj.center.Z)
-                                            listCloserWall.Add(pairVector);
-                                    }
-                                    foreach (Vector2[] pairVector in listCloserWall)
-                                    {
-                                        if (pairVector[0].X > obj.center.X &&
-                                        (obj.center.X + obj.movement.radius) >= pairVector[0].X)
+                                    if (i > 1)
+                                    {//Impacto de la bala con algun tanque
+                                        Tank tank;
+                                        if (obj.parentKey.Equals("tank1"))
+                                            tank = (Tank)objects["tank2"];
+                                        else
+                                            tank = (Tank)objects["tank1"];
+
+                                        if (tank.movement.direction == Movement.Directions.PlusX ||
+                                        tank.movement.direction == Movement.Directions.MinusX)
                                         {
-                                            move = false;
-                                            if (i > 1)
-                                            {//bool draw en cada objeto para saber si se dibujara y si no, se lo elimina
-                                                obj.draw = false;
-                                                movement.forward = false;
+                                            if ((tank.center.Z - tank.movement.width) < obj.center.Z &&
+                                            (tank.center.Z + tank.movement.width) > obj.center.Z)
+                                            {
+                                                if ((obj.center.X + obj.movement.radius) >= (tank.center.X - tank.movement.radius))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                        if (tank.movement.direction == Movement.Directions.PlusZ ||
+                                        tank.movement.direction == Movement.Directions.MinusZ)
+                                        {
+                                            if ((tank.center.Z - tank.movement.radius) < obj.center.Z &&
+                                            (tank.center.Z + tank.movement.radius) > obj.center.Z)
+                                            {
+                                                if ((obj.center.X + obj.movement.radius) >= (tank.center.X - tank.movement.width))
+                                                {
+                                                    move = false;
+                                                    tank.draw = false;
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (move)
+                                    {
+                                        foreach (Vector2[] pairVector in listVertical)
+                                        {
+                                            if ((pairVector[0].Y > (obj.center.Z - obj.movement.width) && pairVector[1].Y < (obj.center.Z - obj.movement.width)) ||
+                                            (pairVector[0].Y > (obj.center.Z + obj.movement.width) && pairVector[1].Y < (obj.center.Z + obj.movement.width)))
+                                                listCloserWall.Add(pairVector);
+                                        }
+                                        foreach (Vector2[] pairVector in listCloserWall)
+                                        {
+                                            if (pairVector[0].X > obj.center.X &&
+                                            (obj.center.X + obj.movement.radius) >= pairVector[0].X)
+                                            {
+                                                move = false;
+                                                if (i > 1)
+                                                {
+                                                    obj.draw = false;
+                                                    movement.forward = false;
+                                                }
                                             }
                                         }
                                     }
@@ -156,7 +328,6 @@ namespace Grafica.Controllers
                                     }
                                     break;
                             }
-                            //tank.translation += new Vector3(0.0f, 0.0f, 0.005f);
                         }
                         if (movement.backward)
                         {
@@ -168,7 +339,8 @@ namespace Grafica.Controllers
                                 case Movement.Directions.PlusZ:
                                     foreach (Vector2[] pairVector in listHorizontal)
                                     {
-                                        if (pairVector[0].X < obj.center.X && pairVector[1].X > obj.center.X)
+                                        if ((pairVector[0].X < (obj.center.X - obj.movement.width) && pairVector[1].X > (obj.center.X - obj.movement.width)) ||
+                                        (pairVector[0].X < (obj.center.X + obj.movement.width) && pairVector[1].X > (obj.center.X + obj.movement.width)))
                                             listCloserWall.Add(pairVector);
                                     }
                                     foreach (Vector2[] pairVector in listCloserWall)
@@ -186,7 +358,8 @@ namespace Grafica.Controllers
                                 case Movement.Directions.MinusX:
                                     foreach (Vector2[] pairVector in listVertical)
                                     {
-                                        if (pairVector[0].Y > obj.center.Z && pairVector[1].Y < obj.center.Z)
+                                        if ((pairVector[0].Y > (obj.center.Z - obj.movement.width) && pairVector[1].Y < (obj.center.Z - obj.movement.width)) ||
+                                        (pairVector[0].Y > (obj.center.Z + obj.movement.width) && pairVector[1].Y < (obj.center.Z + obj.movement.width)))
                                             listCloserWall.Add(pairVector);
                                     }
                                     foreach (Vector2[] pairVector in listCloserWall)
@@ -204,7 +377,8 @@ namespace Grafica.Controllers
                                 case Movement.Directions.MinusZ:
                                     foreach (Vector2[] pairVector in listHorizontal)
                                     {
-                                        if (pairVector[0].X < obj.center.X && pairVector[1].X > obj.center.X)
+                                        if ((pairVector[0].X < (obj.center.X - obj.movement.width) && pairVector[1].X > (obj.center.X - obj.movement.width)) ||
+                                        (pairVector[0].X < (obj.center.X + obj.movement.width) && pairVector[1].X > (obj.center.X + obj.movement.width)))
                                             listCloserWall.Add(pairVector);
                                     }
                                     foreach (Vector2[] pairVector in listCloserWall)
@@ -222,7 +396,8 @@ namespace Grafica.Controllers
                                 case Movement.Directions.PlusX:
                                     foreach (Vector2[] pairVector in listVertical)
                                     {
-                                        if (pairVector[0].Y > obj.center.Z && pairVector[1].Y < obj.center.Z)
+                                        if ((pairVector[0].Y > (obj.center.Z - obj.movement.width) && pairVector[1].Y < (obj.center.Z - obj.movement.width)) ||
+                                        (pairVector[0].Y > (obj.center.Z + obj.movement.width) && pairVector[1].Y < (obj.center.Z + obj.movement.width)))
                                             listCloserWall.Add(pairVector);
                                     }
                                     foreach (Vector2[] pairVector in listCloserWall)
@@ -238,7 +413,6 @@ namespace Grafica.Controllers
                                     }
                                     break;
                             }
-                            //tank.translation += new Vector3(0.0f, 0.0f, -0.005f);
                         }
                     }
                 }

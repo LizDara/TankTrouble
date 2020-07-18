@@ -3,11 +3,6 @@ using Grafica.LoadFiles;
 using Grafica.MyGame.Parts;
 using Grafica.Rendering;
 using OpenTK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grafica.MyGame.Objects
 {
@@ -16,7 +11,6 @@ namespace Grafica.MyGame.Objects
         ObjLoader objLoader;
         public Bullet()
         {
-            key = "bullet";
             obj = true;
             movement = new Movement();
             texture = new Texture("Recursos/negro2.jpg");
@@ -30,6 +24,7 @@ namespace Grafica.MyGame.Objects
         {
             objLoader.center(0.0f, 0.0f, 11.07185f);//11.03585f
             movement.radius = 0.073f;
+            movement.width = 0.073f;
             movement.forward = true;
             scale = new Vector3(0.006f, 0.006f, 0.006f);
         }

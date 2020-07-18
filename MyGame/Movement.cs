@@ -24,6 +24,7 @@ namespace Grafica.MyGame
         public bool left;
         public float angle;
         public float radius;
+        public float width;
         public Movement()
         {
             direction = Directions.PlusZ;

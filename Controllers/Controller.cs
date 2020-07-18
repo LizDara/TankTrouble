@@ -68,12 +68,12 @@ namespace Grafica.Controllers
                     break;
                 case Key.D:
                     secondStateKey[2] = true;
-                    firstTank.rotation += new Vector3(0.0f, secondTank.movement.angle * (-1), 0.0f);
+                    secondTank.rotation += new Vector3(0.0f, secondTank.movement.angle * (-1), 0.0f);
                     planner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.A:
                     secondStateKey[3] = true;
-                    firstTank.rotation += new Vector3(0.0f, secondTank.movement.angle, 0.0f);
+                    secondTank.rotation += new Vector3(0.0f, secondTank.movement.angle, 0.0f);
                     planner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.Q:

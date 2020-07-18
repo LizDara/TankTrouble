@@ -49,13 +49,14 @@ namespace Grafica.MyGame.Objects
             {
                 Wall wall = new Wall();
                 wall.setVertex(pairVertex[0], pairVertex[1]);
-                addPart("wall" + partCount, wall);
+                wall.key = "wall" + partCount;
+                addPart(wall);
             }
         }
 
-        public void addPart(string key, Wall part)
+        public void addPart(Wall part)
         {
-            parts.Add(key, part);
+            parts.Add(part.key, part);
             partCount++;
         }
     }
