@@ -1,26 +1,27 @@
 ﻿using Grafica.Estructura;
 using Grafica.MyGame.Objects;
+using Grafica.ObjectController;
 using OpenTK;
 using OpenTK.Input;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Grafica.Controllers
+namespace Grafica.UserController
 {
-    class Controller
+    class UController
     {
         bool[] firstStateKey = new bool[4];
         bool[] secondStateKey = new bool[4];
-        Planner planner;
-        Executor executor;
+        UPlanner uPlanner;
+        OPlanner oPlanner;
         Hashtable objects;
         Labyrinth labyrinth;
         Tank firstTank;
         Tank secondTank;
-        public Controller()
+        public UController()
         {
-            planner = new Planner();
-            executor = new Executor();
+            uPlanner = new UPlanner();
+            oPlanner = new OPlanner();
             objects = new Hashtable();
             for (int i = 0; i < firstStateKey.Length; i++)
                 firstStateKey[i] = false;
@@ -28,7 +29,7 @@ namespace Grafica.Controllers
                 secondStateKey[i] = false;
         }
 
-        public void addObjects(Hashtable objects)
+        public void init(Hashtable objects)
         {
             this.objects = objects;
         }
@@ -39,45 +40,45 @@ namespace Grafica.Controllers
             {
                 case Key.Up://First Tank
                     firstStateKey[0] = true;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Down:
                     firstStateKey[1] = true;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Right:
                     firstStateKey[2] = true;
                     firstTank.rotation += new Vector3(0.0f, firstTank.movement.angle * (-1), 0.0f);
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Left:
                     firstStateKey[3] = true;
                     firstTank.rotation += new Vector3(0.0f, firstTank.movement.angle, 0.0f);
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Space:
-                    planner.addBullet(objects, firstTank);
+                    oPlanner.addBullet(objects, firstTank);
                     break;
                 case Key.W://Second Tank
                     secondStateKey[0] = true;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.S:
                     secondStateKey[1] = true;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.D:
                     secondStateKey[2] = true;
                     secondTank.rotation += new Vector3(0.0f, secondTank.movement.angle * (-1), 0.0f);
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.A:
                     secondStateKey[3] = true;
                     secondTank.rotation += new Vector3(0.0f, secondTank.movement.angle, 0.0f);
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.Q:
-                    planner.addBullet(objects, secondTank);
+                    oPlanner.addBullet(objects, secondTank);
                     break;
             }
         }
@@ -88,44 +89,45 @@ namespace Grafica.Controllers
             {
                 case Key.Up://First Tank
                     firstStateKey[0] = false;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Down:
                     firstStateKey[1] = false;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Right:
                     firstStateKey[2] = false;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.Left:
                     firstStateKey[3] = false;
-                    planner.changeState(firstStateKey, firstTank);
+                    uPlanner.changeState(firstStateKey, firstTank);
                     break;
                 case Key.W://Second Tank
                     secondStateKey[0] = false;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.S:
                     secondStateKey[1] = false;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.D:
                     secondStateKey[2] = false;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
                 case Key.A:
                     secondStateKey[3] = false;
-                    planner.changeState(secondStateKey, secondTank);
+                    uPlanner.changeState(secondStateKey, secondTank);
                     break;
             }
         }
 
-        public void moveObject()
+        public void run()
         {
             setObjects();
             setWalls();
-            executor.run(objects);
+            uPlanner.run(firstTank, secondTank);
+            oPlanner.run(firstTank, secondTank);
         }
 
         public void setObjects()
@@ -146,12 +148,14 @@ namespace Grafica.Controllers
                 else
                     horizontal.Add(pairVector);
             }
-            executor.setWalls(vertical, horizontal);
+            uPlanner.setWalls(vertical, horizontal);
+            oPlanner.setWalls(vertical, horizontal);
         }
 
         public void dispose()
         {
-            executor.running = false;
+            uPlanner.dispose();
+            oPlanner.dispose();
         }
     }
 }

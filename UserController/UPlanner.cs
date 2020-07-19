@@ -4,38 +4,30 @@ using Grafica.MyGame.Objects;
 using OpenTK;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
-namespace Grafica.Controllers
+namespace Grafica.UserController
 {
-    class Planner
+    class UPlanner
     {
-        public int bulletCount = 0;
-        public Planner()
+        UExecutor uExecutor;
+        public UPlanner()
         {
-
+            uExecutor = new UExecutor();
         }
 
         public void changeState(bool[] stateKey, Tank tank)
         {
             if (stateKey[0])
-            {
                 tank.movement.forward = true;
-            }
             else
-            {
                 tank.movement.forward = false;
-            }
             if (stateKey[1])
-            {
                 tank.movement.backward = true;
-            }
             else
-            {
                 tank.movement.backward = false;
-            }
             if (stateKey[2])
             {
-                //movement.right = true;
                 switch (tank.movement.direction)
                 {
                     case Movement.Directions.PlusZ:
@@ -58,7 +50,6 @@ namespace Grafica.Controllers
             }
             if (stateKey[3])
             {
-                //movement.left = true;
                 switch (tank.movement.direction)
                 {
                     case Movement.Directions.PlusZ:
@@ -81,7 +72,22 @@ namespace Grafica.Controllers
             }
         }
 
-        public void addBullet(Hashtable objects, Tank tank)
+        public void setWalls(List<Vector2[]> vertical, List<Vector2[]> horizontal)
+        {
+            uExecutor.setWalls(vertical, horizontal);
+        }
+
+        public void run(Tank firstTank, Tank secondTank)
+        {
+            uExecutor.run(firstTank, secondTank);//tank1 and tank2
+        }
+
+        public void dispose()
+        {
+            uExecutor.running = false;
+        }
+
+        /*public void addBullet(Hashtable objects, Tank tank)
         {
             Bullet bullet = new Bullet();
             switch (tank.movement.direction)
@@ -108,6 +114,6 @@ namespace Grafica.Controllers
             bullet.key = "bullet" + bulletCount;
             bullet.parentKey = tank.key;
             objects.Add(bullet.key, bullet);
-        }
+        }*/
     }
 }

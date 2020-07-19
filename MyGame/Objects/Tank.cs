@@ -26,9 +26,9 @@ namespace Grafica.MyGame.Objects
 
         public void init()
         {
-            //objLoader.center(0.8138175f, 0.0f, 0.1832345f);//T34.obj
-            //movement.radius = 0.63f;//T34.obj
-            //scale = new Vector3(0.15f, 0.15f, 0.15f);//T34.obj
+            //objLoader.center(0.8138175f, 0.0f, 0.1832345f);//T34.tank
+            //movement.radius = 0.63f;//T34.tank
+            //scale = new Vector3(0.15f, 0.15f, 0.15f);//T34.tank
             objLoader.center(-0.095f, -3.03708f, -1.0f);
             center = new Vector3(x, 1.3638055f, z);
             movement.radius = 0.57f;

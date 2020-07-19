@@ -69,10 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\Executor.cs" />
+    <Compile Include="ObjectController\OExecutor.cs" />
+    <Compile Include="ObjectController\OPlanner.cs" />
+    <Compile Include="UserController\UController.cs" />
+    <Compile Include="UserController\UExecutor.cs" />
     <Compile Include="MyGame\Movement.cs" />
-    <Compile Include="Controllers\Planner.cs" />
+    <Compile Include="UserController\UPlanner.cs" />
     <Compile Include="Estructura\Escenario.cs" />
     <Compile Include="Estructura\Objeto.cs" />
     <Compile Include="Estructura\Parte.cs" />

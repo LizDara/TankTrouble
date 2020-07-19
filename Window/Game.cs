@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using Grafica.Rendering;
 using OpenTK.Input;
 using Grafica.MyGame;
-using Grafica.Controllers;
+using Grafica.UserController;
 
 namespace Grafica.Window
 {
@@ -12,7 +12,7 @@ namespace Grafica.Window
     {
         GameScene scene;
         RenderFrame render;
-        Controller controller;
+        UController controller;
         float speed = 1.5f;
         public Game(int width, int height, string title) : base(width, height, default, title)
         {
@@ -22,12 +22,12 @@ namespace Grafica.Window
         {
             scene = new GameScene();
             render = new RenderFrame();
-            controller = new Controller();
+            controller = new UController();
             scene.SetMatrixProjection(
                 Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45.0f), Width / Height, 0.1f, 20.0f));
             //scene.SetMatrixProjection(Matrix4.CreateOrthographicOffCenter(-6.0f, 6.0f, -6.0f, 6.0f, 0.1f, 20.0f));
-            controller.addObjects(scene.objects);
-            controller.moveObject();
+            controller.init(scene.objects);
+            controller.run();
         }
 
         protected override void OnLoad(EventArgs e)
