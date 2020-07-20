@@ -1,35 +1,52 @@
 ﻿using Grafica.Estructura;
 using Grafica.MyGame;
 using OpenTK;
+using System.Collections.Generic;
 
 namespace Grafica.Rendering
 {
     class RenderFrame
     {
+        List<string> deleteKey;
         public RenderFrame()
         {
 
         }
-        public void Draw(Escenario scene)
+        public void Draw(GameScene scene)
         {
-            scene.shader.Use();
-            scene.CalculateViewProjection();
-            scene.CalculateMatrix();
-            foreach (Objeto objectScene in scene.objects.Values)
+            if(!scene.finish)
             {
-                if (objectScene.draw)
+                scene.shader.Use();
+                scene.CalculateViewProjection();
+                scene.CalculateMatrix();
+                deleteKey = new List<string>();
+                foreach (Objeto objectScene in scene.objects.Values)
                 {
-                    objectScene.CalculateMatrix();
-                    objectScene.texture.Use();
-                    foreach (Parte partObject in objectScene.parts.Values)
+                    if (objectScene.draw)
                     {
-                        partObject.CalculateMatrix();
-                        partObject.renderObject.bind();
-                        Matrix4 matrix =
-                            partObject.model * objectScene.modelObject * scene.modelScene * scene.viewProjection;
-                        scene.shader.SetMatrix4("projection", matrix);
-                        partObject.renderObject.render(objectScene.obj);
+                        objectScene.CalculateMatrix();
+                        objectScene.texture.Use();
+                        foreach (Parte partObject in objectScene.parts.Values)
+                        {
+                            if (partObject.draw)
+                            {
+                                partObject.CalculateMatrix();
+                                partObject.renderObject.bind();
+                                Matrix4 matrix =
+                                    partObject.model * objectScene.modelObject * scene.modelScene * scene.viewProjection;
+                                scene.shader.SetMatrix4("projection", matrix);
+                                partObject.renderObject.render(objectScene.obj);
+                            }
+                        }
                     }
+                    else
+                    {
+                        deleteKey.Add(objectScene.key);
+                    }
+                }
+                foreach (string key in deleteKey)
+                {
+                    scene.objects.Remove(key);
                 }
             }
         }

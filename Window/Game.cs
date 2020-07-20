@@ -13,7 +13,6 @@ namespace Grafica.Window
         GameScene scene;
         RenderFrame render;
         UController controller;
-        float speed = 1.5f;
         public Game(int width, int height, string title) : base(width, height, default, title)
         {
         }
@@ -99,6 +98,17 @@ namespace Grafica.Window
 
             if (e.Key.Equals(Key.Q))//Shoot
                 controller.addKey(Key.Q);
+
+            if (e.Key.Equals(Key.N))
+            {
+                scene.finish = true;
+                controller.dispose();
+                scene.nextLevel();
+                controller = new UController();
+                controller.init(scene.objects);
+                controller.run();
+                scene.finish = false;
+            }
 
             base.OnKeyDown(e);
         }

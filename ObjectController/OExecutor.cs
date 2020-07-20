@@ -1,5 +1,7 @@
-﻿using Grafica.MyGame;
+﻿using Grafica.Estructura;
+using Grafica.MyGame;
 using Grafica.MyGame.Objects;
+using Grafica.MyGame.Parts;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ namespace Grafica.ObjectController
     class OExecutor
     {
         Bullet bullet;
+        Explosion explosion;
         List<Vector2[]> listVertical;
         List<Vector2[]> listHorizontal;
         public bool running;
@@ -25,7 +28,7 @@ namespace Grafica.ObjectController
             listHorizontal = horizontal;
         }
 
-        public void run(Bullet[] bullets, Tank firstTank, Tank secondTank)
+        public void run(Bullet[] bullets, Explosion[] explosions,Tank firstTank, Tank secondTank)
         {
             Thread thread = new Thread(() =>
             {
@@ -36,16 +39,17 @@ namespace Grafica.ObjectController
                         if (bullets[i] != null)
                         {
                             bullet = bullets[i];
+                            explosion = explosions[i];
                             Movement movement = bullet.movement;
+                            Tank tank;
+                            if (bullet.parentKey.Equals("tank1"))
+                                tank = secondTank;
+                            else
+                                tank = firstTank;
                             if (movement.forward)
                             {
                                 List<Vector2[]> listCloserWall = new List<Vector2[]>();
                                 bool move = true;
-                                Tank tank;
-                                if (bullet.parentKey.Equals("tank1"))
-                                    tank = secondTank;
-                                else
-                                    tank = firstTank;
                                 switch (movement.direction)
                                 {
                                     case Movement.Directions.PlusZ:
@@ -59,9 +63,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.Z + bullet.movement.radius) >= (tank.center.Z - tank.movement.radius))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -74,9 +79,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.Z + bullet.movement.radius) >= (tank.center.Z - tank.movement.width))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -117,9 +123,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.X - bullet.movement.radius) >= (tank.center.X + tank.movement.radius))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -132,9 +139,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.X + bullet.movement.radius) >= (tank.center.X - tank.movement.width))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -175,9 +183,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.Z - bullet.movement.radius) >= (tank.center.Z + tank.movement.radius))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -190,9 +199,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.Z - bullet.movement.radius) >= (tank.center.Z + tank.movement.width))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -233,9 +243,10 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.X + bullet.movement.radius) >= (tank.center.X - tank.movement.radius))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
@@ -248,15 +259,16 @@ namespace Grafica.ObjectController
                                             {
                                                 if ((bullet.center.X + bullet.movement.radius) >= (tank.center.X - tank.movement.width))
                                                 {
+                                                    explosion.center = tank.center;
+                                                    explosion.translation = tank.translation;
+                                                    explosion.start = true;
                                                     move = false;
-                                                    tank.draw = false;
-                                                    bullet.draw = false;
                                                     movement.forward = false;
                                                 }
                                             }
                                         }
                                         if (move)
-                                        {
+                                        {//Impacto de algun objeto con alguna pared
                                             foreach (Vector2[] pairVector in listVertical)
                                             {
                                                 if ((pairVector[0].Y > (bullet.center.Z - bullet.movement.width) && pairVector[1].Y < (bullet.center.Z - bullet.movement.width)) ||
@@ -275,12 +287,77 @@ namespace Grafica.ObjectController
                                             }
                                         }
                                         if (move)
-                                        {
+                                        {//No hay impacto
                                             bullet.center += new Vector3(0.005f, 0.0f, 0.0f);
                                             bullet.translation += new Vector3(0.005f, 0.0f, 0.0f);
                                         }
                                         break;
                                 }
+                            }
+                            //Mostrar explosion
+                            if (explosion != null && explosion.start)
+                            {
+                                Parte partExplosion;
+                                Parte part;
+                                Console.WriteLine("");
+                                switch (explosion.duration)
+                                {
+                                    case 100:
+                                        tank.draw = false;
+                                        bullet.draw = false;
+                                        partExplosion = (FirstExplosion)explosion.parts["firstExplosion"];
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 200:
+                                        partExplosion = (SecondExplosion)explosion.parts["secondExplosion"];
+                                        part = (FirstExplosion)explosion.parts["firstExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 300:
+                                        partExplosion = (ThirdExplosion)explosion.parts["thirdExplosion"];
+                                        part = (SecondExplosion)explosion.parts["secondExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 400:
+                                        partExplosion = (FourthExplosion)explosion.parts["fourthExplosion"];
+                                        part = (ThirdExplosion)explosion.parts["thirdExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 500:
+                                        partExplosion = (FifthExplosion)explosion.parts["fifthExplosion"];
+                                        part = (FourthExplosion)explosion.parts["fourthExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 600:
+                                        partExplosion = (SixthExplosion)explosion.parts["sixthExplosion"];
+                                        part = (FifthExplosion)explosion.parts["fifthExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 700:
+                                        partExplosion = (SeventhExplosion)explosion.parts["seventhExplosion"];
+                                        part = (SixthExplosion)explosion.parts["sixthExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 800:
+                                        partExplosion = (EighthExplosion)explosion.parts["eighthExplosion"];
+                                        part = (SeventhExplosion)explosion.parts["seventhExplosion"];
+                                        part.draw = false;
+                                        partExplosion.draw = true;
+                                        break;
+                                    case 900:
+                                        part = (EighthExplosion)explosion.parts["eighthExplosion"];
+                                        part.draw = false;
+                                        explosion.draw = false;
+                                        explosion.start = false;
+                                        break;
+                                }
+                                explosion.duration++;
                             }
                         }
                     }

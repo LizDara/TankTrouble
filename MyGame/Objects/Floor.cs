@@ -12,7 +12,7 @@ namespace Grafica.MyGame.Objects
         {
             key = "floor";
             obj = false;
-            texture = new Texture("Recursos/cafe6.png");
+            texture = new Texture("Recursos/blanco2.jpg");
             cement = new Cement();
             cement.setVertex(x, z);
             addPart(cement);

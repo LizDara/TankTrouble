@@ -26,7 +26,6 @@ C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\De
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.exe
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.pdb
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\obj\Debug\Grafica.csprojAssemblyReference.cache
-C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\T34.obj
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflaje.jpg
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\cafe6.png
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\muro.jpg
@@ -37,3 +36,5 @@ C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\De
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\laberinto2.txt
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\camuflaje2.jpg
 C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\T-34.obj
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\explosion6.png
+C:\Users\lizda\OneDrive\Escritorio\Programación Gráfica\Grafica\Grafica\bin\Debug\Recursos\blanco2.jpg

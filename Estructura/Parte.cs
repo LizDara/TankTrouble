@@ -19,6 +19,7 @@ namespace Grafica.Estructura
         public int vertexCount;
 
         public string key;
+        public bool draw = true;
 
         public abstract void CalculateMatrix();
     }

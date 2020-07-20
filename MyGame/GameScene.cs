@@ -11,10 +11,19 @@ namespace Grafica.MyGame
         Tank firstTank;
         Tank secondTank;
         Floor floor;
+        public bool finish = false;
         public GameScene()
         {
-            init();
-            labyrinth = new Labyrinth();
+            shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
+            position = new Vector3(0.0f, 18.0f, 0.0f);//16.0f Y
+            front = new Vector3(0.0f, 0.0f, 0.0f);
+            up = new Vector3(0.0f, 0.0f, -1.0f);//-1.0f Z
+            init("Recursos/laberinto2.txt");
+        }
+
+        public void init(string path)
+        {
+            labyrinth = new Labyrinth(path);
             floor = new Floor(labyrinth.sizeX, labyrinth.sizeZ);
             firstTank = new Tank(labyrinth.firstPositionX, labyrinth.firstPositionZ);
             firstTank.setTexture("Recursos/camuflaje.jpg");
@@ -32,18 +41,16 @@ namespace Grafica.MyGame
             addObject(secondTank);
         }
 
-        public void init()
-        {
-            shader = new Shader("Recursos/shader.vert", "Recursos/shader.frag");
-            position = new Vector3(0.0f, 18.0f, 0.0f);//16.0f Y
-            front = new Vector3(0.0f, 0.0f, 0.0f);
-            up = new Vector3(0.0f, 0.0f, -1.0f);//-1.0f Z
-        }
-
         public void addObject(Objeto obj)
         {
             objects.Add(obj.key, obj);
             objectCount++;
+        }
+
+        public void nextLevel()
+        {
+            objects.Clear();
+            init("Recursos/laberinto.txt");
         }
 
         public override void CalculateMatrix()

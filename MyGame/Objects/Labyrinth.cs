@@ -17,12 +17,12 @@ namespace Grafica.MyGame.Objects
         public float firstPositionZ;
         public float secondPositionX;
         public float secondPositionZ;
-        public Labyrinth()
+        public Labyrinth(string path)
         {
             key = "labyrinth";
             obj = false;
-            texture = new Texture("Recursos/plomo4.jpg");
-            parser = new Parser("Recursos/laberinto.txt");
+            texture = new Texture("Recursos/cafe6.png");
+            parser = new Parser(path);
             parser.loadVertex();
             sizeX = parser.sizeX;
             sizeZ = parser.sizeZ;
